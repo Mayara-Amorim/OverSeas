@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -44,6 +45,15 @@ public class AnuncioController {
 	@PostMapping
 	public ResponseEntity<AnuncioModel> post(@Valid @RequestBody AnuncioModel aM){
 		return ResponseEntity.status(HttpStatus.CREATED).body(aR.save(aM));
+	}
+	
+	
+	@PutMapping
+	public ResponseEntity<AnuncioModel>put(@Valid @RequestBody AnuncioModel aM){
+		return aR.findById(aM.getId())
+				.map(resp-> ResponseEntity.status(HttpStatus.OK)
+				.body(aR.save(aM)))
+				.orElse(ResponseEntity.status(HttpStatus.NOT_FOUND).build());
 	}
 	
 	
