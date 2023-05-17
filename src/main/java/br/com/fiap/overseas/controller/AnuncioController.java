@@ -20,6 +20,7 @@ import org.springframework.web.server.ResponseStatusException;
 
 import br.com.fiap.overseas.model.AnuncioModel;
 import br.com.fiap.overseas.repository.AnuncioRepository;
+import br.com.fiap.overseas.repository.CarroRepository;
 import jakarta.validation.Valid;
 
 @RestController
@@ -28,6 +29,9 @@ import jakarta.validation.Valid;
 public class AnuncioController {
 	@Autowired
 	private AnuncioRepository aR;
+	
+	@Autowired
+	private CarroRepository cR;
 	
 	@GetMapping
 	public ResponseEntity <List<AnuncioModel>> getAll(){
@@ -48,16 +52,22 @@ public class AnuncioController {
 
 	@PostMapping
 	public ResponseEntity<AnuncioModel> post(@Valid @RequestBody AnuncioModel aM){
-		return ResponseEntity.status(HttpStatus.CREATED).body(aR.save(aM));
+		if(cR.existsById(aM.getCarro().getId()))
+		return ResponseEntity.status(HttpStatus.CREATED)
+		.body(aR.save(aM));
+		return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
 	}
 	
 	
 	@PutMapping
 	public ResponseEntity<AnuncioModel>put(@Valid @RequestBody AnuncioModel aM){
-		return aR.findById(aM.getId())
-				.map(resp-> ResponseEntity.status(HttpStatus.OK)
-				.body(aR.save(aM)))
-				.orElse(ResponseEntity.status(HttpStatus.NOT_FOUND).build());
+		if(aR.existsById(aM.getId())) {
+			if(cR.existsById(aM.getCarro().getId()))
+				return ResponseEntity.status(HttpStatus.OK)
+					.body(aR.save(aM));
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+		}
+				return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
 	}
 	
 	@ResponseStatus(HttpStatus.NO_CONTENT)
