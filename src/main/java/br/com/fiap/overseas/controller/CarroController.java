@@ -28,8 +28,13 @@ import jakarta.validation.Valid;
 public class CarroController {
 	@Autowired
 	private CarroRepository cR;
+	
+	  @GetMapping
+	    public ResponseEntity<List<CarroModel>> getAll(){
+	        return ResponseEntity.ok(cR.findAll());
+	    }
 
-	@GetMapping("{/id}")
+	@GetMapping("/{id}")
 	public ResponseEntity<CarroModel> getById(@PathVariable Long id) {
 		return cR.findById(id).map(resp -> ResponseEntity.ok(resp))
 				.orElse(ResponseEntity.status(HttpStatus.NOT_FOUND).build());

@@ -15,6 +15,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
 @Entity
@@ -50,13 +51,11 @@ public class CarroModel {
 	
 	private String foto;
 	
-	@jakarta.validation.constraints.NotBlank
+	@NotNull
 	private double valorHora;
-	
-	@jakarta.validation.constraints.NotBlank
+	@NotNull
 	private double velocidade;
-	
-	@jakarta.validation.constraints.NotBlank
+	@NotNull
 	private double autonomiaKm;
 	
 	private String cor;
@@ -146,6 +145,9 @@ public class CarroModel {
 	}
 	public void setEndereco(EnderecoModel endereco) {
 		this.endereco = endereco;
+	}
+	public void setVelocidade(double velocidade) {
+		this.velocidade = velocidade;
 	}
 	public List<ReservaModel> getReserva() {
 		return reserva;

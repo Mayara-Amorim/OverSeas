@@ -39,6 +39,7 @@ public class UsuarioModel {
 	@jakarta.validation.constraints.NotBlank
 	@Size(min=5, message="O valor minimo é de 5 caracteres. Preste atenção")
 	private String email;
+	
 	@OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "endereco_id", referencedColumnName = "id")
 	private EnderecoModel endereco;
