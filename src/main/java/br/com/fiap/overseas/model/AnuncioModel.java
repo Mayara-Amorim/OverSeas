@@ -4,10 +4,16 @@ import java.time.LocalDateTime;
 
 import org.hibernate.annotations.UpdateTimestamp;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
@@ -29,6 +35,24 @@ public class AnuncioModel {
 	
 	@UpdateTimestamp
 	private LocalDateTime data;
+	
+	@OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "carro_id", referencedColumnName = "id")
+    private CarroModel carro;
+	
+	@ManyToOne
+	@JsonIgnoreProperties("anuncio")
+	private UsuarioModel usuario;
+	
+	
+
+	public UsuarioModel getUsuario() {
+		return usuario;
+	}
+
+	public void setUsuario(UsuarioModel usuario) {
+		this.usuario = usuario;
+	}
 
 	public Long getId() {
 		return id;
@@ -61,6 +85,16 @@ public class AnuncioModel {
 	public void setData(LocalDateTime data) {
 		this.data = data;
 	}
+
+	public CarroModel getCarro() {
+		return carro;
+	}
+
+	public void setCarro(CarroModel carro) {
+		this.carro = carro;
+	}
+	
+	
 	
 	
 

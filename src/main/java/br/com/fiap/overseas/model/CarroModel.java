@@ -1,8 +1,16 @@
 package br.com.fiap.overseas.model;
+import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.Size;
 
@@ -50,6 +58,13 @@ public class CarroModel {
 	
 	private String cor;
 	
+	@OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "endereco_id", referencedColumnName = "id")
+	private EnderecoModel endereco;
+	
+	@OneToMany(mappedBy = "carro", cascade = CascadeType.REMOVE)
+	@JsonIgnoreProperties("carro")
+	private List<ReservaModel> reserva;
 	
 	public Long getId() {
 		return id;
@@ -114,8 +129,20 @@ public class CarroModel {
 	public String getCor() {
 		return cor;
 	}
+	public EnderecoModel getEndereco() {
+		return endereco;
+	}
 	public void setCor(String cor) {
 		this.cor = cor;
+	}
+	public void setEndereco(EnderecoModel endereco) {
+		this.endereco = endereco;
+	}
+	public List<ReservaModel> getReserva() {
+		return reserva;
+	}
+	public void setReserva(List<ReservaModel> reserva) {
+		this.reserva = reserva;
 	}
 	
 	

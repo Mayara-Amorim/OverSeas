@@ -6,10 +6,13 @@ import java.time.LocalDateTime;
 import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.format.annotation.DateTimeFormat;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 @Entity
 @Table(name="tb_reservas")
@@ -21,10 +24,16 @@ public class ReservaModel {
 	private LocalDateTime checkin;
 	@DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
 	private LocalDateTime checkout;
-	
 	private double valor;
+	@ManyToOne
+	@JsonIgnoreProperties("reserva")
+	private UsuarioModel usuario;
 	
-	
+	@ManyToOne
+	@JsonIgnoreProperties("reserva")
+	private CarroModel carro;
+
+
 	public double calcularValorReserva(CarroModel carro) {
 		        long horas = Duration.between(checkin, checkout).toHours();  
 		        double valorTotal = horas * carro.getValorHora(); 
@@ -65,6 +74,24 @@ public class ReservaModel {
 	
 		public double getValor() {
 			return valor;
+		}
+
+
+		public UsuarioModel getUsuario() {
+			return usuario;
+		}
+
+
+		public void setUsuario(UsuarioModel usuario) {
+			this.usuario = usuario;
+		}
+		public CarroModel getCarro() {
+			return carro;
+		}
+
+
+		public void setCarro(CarroModel carro) {
+			this.carro = carro;
 		}
 	
 		

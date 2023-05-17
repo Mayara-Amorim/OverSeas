@@ -1,10 +1,19 @@
 package br.com.fiap.overseas.model;
 
+import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
 @Entity
@@ -27,6 +36,9 @@ public class UsuarioModel {
 	@jakarta.validation.constraints.NotBlank
 	@Size(min=5, message="O valor minimo é de 5 caracteres. Preste atenção")
 	private String email;
+	@OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "endereco_id", referencedColumnName = "id")
+	private EnderecoModel endereco;
 	
 
 	@jakarta.validation.constraints.NotBlank
@@ -34,11 +46,20 @@ public class UsuarioModel {
 	private String telefone;
 	
 
-	@jakarta.validation.constraints.NotBlank
+	@NotNull
 	@Size(min=5, message="O valor minimo é de 5 caracteres. Preste atenção")
 	private String senha;
 	
 	private String foto;
+	
+	@OneToMany(mappedBy = "usuario", cascade = CascadeType.REMOVE)
+	@JsonIgnoreProperties("usuario")
+	private List<ReservaModel> reserva;
+	
+	@OneToMany(mappedBy = "usuario", cascade = CascadeType.REMOVE)
+	@JsonIgnoreProperties("usuario")
+	private List<AnuncioModel> anuncio;
+	
 
 	public Long getId() {
 		return id;
@@ -95,6 +116,30 @@ public class UsuarioModel {
 	public void setFoto(String foto) {
 		this.foto = foto;
 	}
+
+	public List<ReservaModel> getReserva() {
+		return reserva;
+	}
+
+	public void setReserva(List<ReservaModel> reserva) {
+		this.reserva = reserva;
+	}
+	public EnderecoModel getEndereco() {
+		return endereco;
+	}
+	public void setEndereco(EnderecoModel endereco) {
+		this.endereco = endereco;
+	}
+	
+	public List<AnuncioModel> getAnuncio() {
+		return anuncio;
+	}
+	public void setAnuncio(List<AnuncioModel> anuncio) {
+		this.anuncio = anuncio;
+	}
+	
+	
+
 	
 	
 
