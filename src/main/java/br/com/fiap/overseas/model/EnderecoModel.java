@@ -27,6 +27,10 @@ public class EnderecoModel {
 	@Size(min=5, max=15)
 	private String cep;
 	
+	@NotNull
+	@Size(min=2, max=30)
+	private String cidade;
+	
 	@Size(min=1, max=15)
 	private String estado;
 	
@@ -72,6 +76,30 @@ public class EnderecoModel {
 
 	public void setCep(String cep) {
 		this.cep = cep;
+	}
+
+	public String getCidade() {
+		return cidade;
+	}
+
+	public void setCidade(String cidade) {
+		this.cidade = cidade;
+	}
+
+	public String getEstado() {
+		return estado;
+	}
+
+	public void setEstado(String estado) {
+		this.estado = estado;
+	}
+
+	public String getPais() {
+		return pais;
+	}
+
+	public void setPais(String pais) {
+		this.pais = pais;
 	}
 
 }
