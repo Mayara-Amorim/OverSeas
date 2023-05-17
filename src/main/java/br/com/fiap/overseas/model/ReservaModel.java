@@ -20,11 +20,18 @@ public class ReservaModel {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	@UpdateTimestamp
+	
+	@DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
 	private LocalDateTime checkin;
+	
 	@DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
 	private LocalDateTime checkout;
+	
+	@UpdateTimestamp
+	private LocalDateTime dataReserva;
+	
 	private double valor;
+	
 	@ManyToOne
 	@JsonIgnoreProperties("reserva")
 	private UsuarioModel usuario;
@@ -92,6 +99,16 @@ public class ReservaModel {
 
 		public void setCarro(CarroModel carro) {
 			this.carro = carro;
+		}
+
+
+		public LocalDateTime getDataReserva() {
+			return dataReserva;
+		}
+
+
+		public void setDataReserva(LocalDateTime dataReserva) {
+			this.dataReserva = dataReserva;
 		}
 	
 		

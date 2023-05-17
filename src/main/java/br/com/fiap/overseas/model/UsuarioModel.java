@@ -1,6 +1,9 @@
 package br.com.fiap.overseas.model;
 
+import java.time.LocalDateTime;
 import java.util.List;
+
+import org.hibernate.annotations.UpdateTimestamp;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
@@ -51,6 +54,9 @@ public class UsuarioModel {
 	private String senha;
 	
 	private String foto;
+	
+	@UpdateTimestamp
+	private LocalDateTime dataCadastro;
 	
 	@OneToMany(mappedBy = "usuario", cascade = CascadeType.REMOVE)
 	@JsonIgnoreProperties("usuario")
@@ -136,6 +142,14 @@ public class UsuarioModel {
 	}
 	public void setAnuncio(List<AnuncioModel> anuncio) {
 		this.anuncio = anuncio;
+	}
+
+	public LocalDateTime getDataCadastro() {
+		return dataCadastro;
+	}
+
+	public void setDataCadastro(LocalDateTime dataCadastro) {
+		this.dataCadastro = dataCadastro;
 	}
 	
 	

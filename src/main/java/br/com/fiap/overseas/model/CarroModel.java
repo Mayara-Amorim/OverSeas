@@ -1,5 +1,8 @@
 package br.com.fiap.overseas.model;
+import java.time.LocalDateTime;
 import java.util.List;
+
+import org.hibernate.annotations.UpdateTimestamp;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
@@ -42,7 +45,7 @@ public class CarroModel {
 	
 
 	@jakarta.validation.constraints.NotBlank
-	@Size(min=8, max=10, message="O valor minimo é de 2 e o valor maximo é de 12. Preste atenção")
+	@Size(min=6, max=10, message="O valor minimo é de 2 e o valor maximo é de 12. Preste atenção")
 	private String tipo;
 	
 	private String foto;
@@ -51,12 +54,15 @@ public class CarroModel {
 	private double valorHora;
 	
 	@jakarta.validation.constraints.NotBlank
-	private double velocidadde;
+	private double velocidade;
 	
 	@jakarta.validation.constraints.NotBlank
 	private double autonomiaKm;
 	
 	private String cor;
+	
+	@UpdateTimestamp
+	private LocalDateTime dataCadastroCarro;
 	
 	@OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "endereco_id", referencedColumnName = "id")
@@ -65,6 +71,9 @@ public class CarroModel {
 	@OneToMany(mappedBy = "carro", cascade = CascadeType.REMOVE)
 	@JsonIgnoreProperties("carro")
 	private List<ReservaModel> reserva;
+	
+	
+	
 	
 	public Long getId() {
 		return id;
@@ -114,11 +123,11 @@ public class CarroModel {
 	public void setValorHora(double valorHora) {
 		this.valorHora = valorHora;
 	}
-	public double getVelocidadde() {
-		return velocidadde;
+	public double getVelocidade() {
+		return velocidade;
 	}
-	public void setVelocidadde(double velocidadde) {
-		this.velocidadde = velocidadde;
+	public void setVelocidadde(double velocidade) {
+		this.velocidade = velocidade;
 	}
 	public double getAutonomiaKm() {
 		return autonomiaKm;
@@ -144,6 +153,13 @@ public class CarroModel {
 	public void setReserva(List<ReservaModel> reserva) {
 		this.reserva = reserva;
 	}
+	public LocalDateTime getDataCadastroCarro() {
+		return dataCadastroCarro;
+	}
+	public void setDataCadastroCarro(LocalDateTime dataCadastroCarro) {
+		this.dataCadastroCarro = dataCadastroCarro;
+	}
+	
 	
 	
 
