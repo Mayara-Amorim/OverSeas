@@ -16,6 +16,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
@@ -67,6 +68,24 @@ public class UsuarioModel {
 	@JsonIgnoreProperties("usuario")
 	private List<AnuncioModel> anuncio;
 	
+	
+	public UsuarioModel(){
+		
+	}
+
+	public UsuarioModel(Long id, String nome, String cpf, String email, EnderecoModel endereco, String telefone,
+		String senha, String foto, LocalDateTime dataCadastro) {
+		this.id = id;
+		this.nome = nome;
+		this.cpf = cpf;
+		this.email = email;
+		this.endereco = endereco;
+		this.telefone = telefone;
+		this.senha = senha;
+		this.foto = foto;
+		this.dataCadastro = dataCadastro;
+
+	}
 
 	public Long getId() {
 		return id;
