@@ -3,7 +3,7 @@ package br.com.fiap.overseas.model;
 public class UsuarioLoginDTO {
 	private Long id;
 	private String nome;
-	private String usuario;
+	private String email;
 	private String senha;
 	private String foto;
 	private String token;
@@ -25,11 +25,11 @@ public class UsuarioLoginDTO {
 	}
 
 	public String getUsuario() {
-		return this.usuario;
+		return this.email;
 	}
 
-	public void setUsuario(String usuario) {
-		this.usuario = usuario;
+	public void setUsuario(String email) {
+		this.email = email;
 	}
 
 	public String getSenha() {

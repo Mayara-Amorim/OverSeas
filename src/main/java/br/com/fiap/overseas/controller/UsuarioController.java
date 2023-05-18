@@ -27,6 +27,7 @@ import jakarta.validation.Valid;
 public class UsuarioController {
 	@Autowired	
 	private UsuarioRepository uR;
+	@Autowired
 	private UsuarioService uS;
 	   @GetMapping("/all")
 	    public ResponseEntity <List<UsuarioModel>> getAll(){     
