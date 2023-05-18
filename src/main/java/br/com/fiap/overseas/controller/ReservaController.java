@@ -18,7 +18,9 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
+import br.com.fiap.overseas.model.AnuncioModel;
 import br.com.fiap.overseas.model.ReservaModel;
+import br.com.fiap.overseas.model.UsuarioModel;
 import br.com.fiap.overseas.repository.CarroRepository;
 import br.com.fiap.overseas.repository.ReservaRepository;
 import br.com.fiap.overseas.repository.UsuarioRepository;
@@ -48,7 +50,7 @@ public class ReservaController {
 				.orElse(ResponseEntity.status(HttpStatus.NOT_FOUND).build());
 	}
 	
-	@PostMapping
+	@PostMapping("/cadastrar")
 	public ResponseEntity<ReservaModel> post(@Valid @RequestBody ReservaModel rM){
 		if(cR.existsById(rM.getCarro().getId()) && uR.existsById(rM.getUsuario().getId()))
 			return ResponseEntity.status(HttpStatus.CREATED).body(rR.save(rM));
