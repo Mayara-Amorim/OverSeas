@@ -7,6 +7,7 @@ import org.hibernate.annotations.UpdateTimestamp;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -16,7 +17,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
-import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
@@ -36,7 +37,8 @@ public class UsuarioModel {
 	@Size(min=10, max=12, message="O valor minimo é de 10 e o valor maximo é de 12. Preste atenção")
 	private String cpf;
 	
-
+	@Schema(example = "email@email.com.br")
+	@Email(message = "O Atributo email deve ser um email válido!")
 	@jakarta.validation.constraints.NotBlank
 	@Size(min=5, message="O valor minimo é de 5 caracteres. Preste atenção")
 	private String email;
