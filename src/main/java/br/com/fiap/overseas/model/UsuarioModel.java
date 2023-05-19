@@ -73,13 +73,12 @@ public class UsuarioModel {
 		
 	}
 
-	public UsuarioModel(Long id, String nome, String cpf, String email, EnderecoModel endereco, String telefone,
+	public UsuarioModel(Long id, String nome, String cpf, String email, String telefone,
 		String senha, String foto, LocalDateTime dataCadastro) {
 		this.id = id;
 		this.nome = nome;
 		this.cpf = cpf;
 		this.email = email;
-		this.endereco = endereco;
 		this.telefone = telefone;
 		this.senha = senha;
 		this.foto = foto;
